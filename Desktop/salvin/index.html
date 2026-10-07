@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salvin & Ancy — Wedding Celebration</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            50: '#fdf2f4',
+                            100: '#fbe6e8',
+                            200: '#f7d1d6',
+                            300: '#f0acb5',
+                            400: '#e57a8a',
+                            500: '#d34d63',
+                            600: '#ba334d',
+                            700: '#9b243b',
+                            800: '#812135',
+                            900: '#6d2030',
+                            950: '#3e0c17',
+                        },
+                        terracotta: {
+                            400: '#D97757',
+                            500: '#C86D51',
+                            600: '#A85238',
+                        },
+                        champagne: '#F8EDE3',
+                        gold: '#D4AF37',
+                    },
+                    fontFamily: {
+                        script: ['Great Vibes', 'cursive'],
+                        serif: ['Playfair Display', 'serif'],
+                        garamond: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #3e0c17;
+            color: #2D1810;
+        }
+        .font-script { font-family: 'Great Vibes', cursive; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-garamond { font-family: 'Cormorant Garamond', serif; }
+
+        .glass-panel {
+            background: rgba(255, 251, 247, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .glass-dark {
+            background: rgba(62, 12, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .shimmer-gold {
+            background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-gold-gradient {
+            background: linear-gradient(135deg, #BF953F 0%, #E6CA65 50%, #AA771C 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden antialiased bg-stone-950 text-stone-100">
+
+    <!-- Falling Petals Canvas -->
+    <canvas id="petalsCanvas" class="fixed inset-0 pointer-events-none z-10 opacity-70"></canvas>
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-burgundy-950/90 backdrop-blur-md border-b border-gold/20 text-white">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <a href="#hero" class="font-script text-2xl md:text-3xl shimmer-gold hover:opacity-80 transition">
+                Salvin &amp; Ancy
+            </a>
+            <div class="flex items-center space-x-6 text-xs uppercase tracking-widest font-medium">
+                <a href="#story" class="hover:text-gold transition">Our Story</a>
+                <a href="#schedule" class="hover:text-gold transition">Events</a>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button id="musicToggle" class="p-2 rounded-full bg-burgundy-900 border border-gold/40 text-gold hover:bg-gold hover:text-burgundy-950 transition flex items-center justify-center w-9 h-9 text-sm" title="Toggle Music">
+                    <i id="musicIcon" class="fas fa-music"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-burgundy-950 via-burgundy-900 to-stone-950">
+        <div class="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80');"></div>
+
+        <div class="relative z-20 max-w-4xl mx-auto text-center space-y-8 mt-4">
+            <div class="inline-block px-6 py-1.5 rounded-full border border-gold/40 bg-burgundy-900/60 backdrop-blur-md text-gold text-xs md:text-sm uppercase tracking-widest font-medium animate-pulse">
+                ✨ Wedding Invitation ✨
+            </div>
+
+            <h2 class="text-xs sm:text-sm uppercase tracking-widest text-stone-300 font-light">
+                We Request The Honour Of Your Presence At The Wedding Celebration Of
+            </h2>
+
+            <div class="space-y-2">
+                <h1 class="font-script text-6xl sm:text-7xl md:text-9xl text-white drop-shadow-lg leading-none">
+                    Salvin <span class="text-gold font-serif text-4xl sm:text-5xl md:text-7xl font-normal">&amp;</span> Ancy
+                </h1>
+            </div>
+
+            <p class="font-garamond italic text-xl md:text-2xl text-stone-300 max-w-2xl mx-auto font-light">
+                "Two lives, two hearts, joined together in friendship, united forever in love."
+            </p>
+
+            <!-- Key Dates Ribbon -->
+            <div class="pt-2 flex flex-wrap justify-center gap-3 text-xs md:text-sm uppercase tracking-wider text-gold/90 font-medium">
+                <span class="px-3 py-1.5 bg-burgundy-900/80 rounded-md border border-gold/20">Bride Eve: Jan 07</span>
+                <span class="px-3 py-1.5 bg-burgundy-900/80 rounded-md border border-gold/20">Engagement: Jan 09</span>
+                <span class="px-3 py-1.5 bg-burgundy-900/80 rounded-md border border-gold/20">Groom Eve: Jan 11</span>
+                <span class="px-3 py-1.5 bg-gold text-burgundy-950 font-bold rounded-md shadow-lg">Marriage: Jan 14</span>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="pt-6 max-w-2xl mx-auto">
+                <div class="glass-dark rounded-2xl p-6 shadow-2xl border border-gold/30">
+                    <p class="text-xs uppercase tracking-widest text-gold mb-4 font-semibold">Countdown To The Marriage (Jan 14)</p>
+                    <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+                        <div class="bg-burgundy-950/70 p-3 sm:p-4 rounded-xl border border-gold/20">
+                            <span id="cd-days" class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-400">Days</span>
+                        </div>
+                        <div class="bg-burgundy-950/70 p-3 sm:p-4 rounded-xl border border-gold/20">
+                            <span id="cd-hours" class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-400">Hours</span>
+                        </div>
+                        <div class="bg-burgundy-950/70 p-3 sm:p-4 rounded-xl border border-gold/20">
+                            <span id="cd-minutes" class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-400">Mins</span>
+                        </div>
+                        <div class="bg-burgundy-950/70 p-3 sm:p-4 rounded-xl border border-gold/20">
+                            <span id="cd-seconds" class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-gold block">00</span>
+                            <span class="text-[10px] sm:text-xs uppercase tracking-wider text-stone-400">Secs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="pt-8 flex flex-col items-center justify-center text-gold/60 text-xs">
+                <span>SCROLL DOWN</span>
+                <i class="fas fa-chevron-down mt-2 animate-bounce"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Couple Highlight Section -->
+    <section id="story" class="py-20 px-4 bg-champagne text-stone-900 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <span class="font-script text-3xl md:text-4xl text-terracotta-500 block">The Happy Couple</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-burgundy-950 uppercase tracking-tight">
+                    Salvin Paulson &amp; Ancy Antony
+                </h2>
+                <div class="w-24 h-0.5 bg-gold mx-auto my-2"></div>
+                <p class="text-stone-600 max-w-xl mx-auto text-sm md:text-base italic font-garamond">
+                    "From shared laughter to everlasting love, we invite you to celebrate with us as we embark on our greatest journey together."
+                </p>
+            </div>
+
+            <!-- Couple Card with Image Frame -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <!-- Main Couple Image -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative mx-auto max-w-md">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-terracotta-500 to-gold rounded-3xl blur-sm opacity-50"></div>
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                            <div class="relative group">
+                                <img src="WhatsApp Image 2026-09-22 at 10.42.16 AM_2.jpeg" 
+                                     alt="Salvin Paulson & Ancy Antony" 
+                                     id="couplePhoto"
+                                     class="w-full h-[520px] object-cover object-center transition duration-700 group-hover:scale-105"
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=800';" />
+                                
+                                <div class="absolute inset-0 bg-gradient-to-t from-burgundy-950/80 via-transparent to-transparent opacity-80"></div>
+                                <div class="absolute bottom-6 left-6 right-6 text-white">
+                                    <p class="font-script text-3xl text-gold">Salvin &amp; Ancy</p>
+                                    <p class="text-xs uppercase tracking-widest text-stone-300">Together Forever</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Groom & Bride Details -->
+                <div class="lg:col-span-6 space-y-6 text-stone-800">
+                    <div class="bg-white/90 p-8 rounded-2xl border border-stone-200 shadow-xl space-y-6">
+                        <div class="border-b border-stone-200 pb-5">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-burgundy-900 text-gold flex items-center justify-center font-serif font-bold">
+                                    S
+                                </div>
+                                <div>
+                                    <h3 class="font-serif text-2xl text-burgundy-900 font-bold">Salvin Paulson</h3>
+                                    <p class="text-xs text-terracotta-600 uppercase tracking-wider font-semibold">The Groom</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+                                Ready to take the sacred vows with his soulmate surrounded by family and loved ones.
+                            </p>
+                        </div>
+
+                        <div class="pt-2 border-b border-stone-200 pb-5">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-burgundy-900 text-gold flex items-center justify-center font-serif font-bold">
+                                    A
+                                </div>
+                                <div>
+                                    <h3 class="font-serif text-2xl text-burgundy-900 font-bold">Ancy Antony</h3>
+                                    <p class="text-xs text-terracotta-600 uppercase tracking-wider font-semibold">The Bride</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+                                Radiant and deeply cherished, eager to begin this lifetime journey of love and devotion.
+                            </p>
+                        </div>
+
+                        <div class="bg-burgundy-50 p-4 rounded-xl border border-burgundy-200 flex items-center space-x-4 text-burgundy-900">
+                            <i class="fas fa-heart text-2xl text-terracotta-500 flex-shrink-0"></i>
+                            <div class="text-xs sm:text-sm">
+                                <span class="font-bold block text-burgundy-950">Celebration Days</span>
+                                <span>January 7 • January 9 • January 11 • January 14</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Schedule Section -->
+    <section id="schedule" class="py-20 px-4 bg-burgundy-950 text-white relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <span class="font-script text-3xl md:text-4xl text-gold block">Celebration Lineup</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold uppercase tracking-tight text-white">
+                    Wedding Ceremonies
+                </h2>
+                <div class="w-24 h-0.5 bg-gold mx-auto my-2"></div>
+                <p class="text-stone-300 max-w-xl mx-auto text-sm md:text-base">
+                    We cordially invite you to join us for our wedding celebrations.
+                </p>
+            </div>
+
+            <!-- Event Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Event 1: Bride Pre-wedding Eve -->
+                <div class="glass-dark p-8 rounded-2xl border-l-4 border-l-terracotta-400 hover:border-gold transition-all duration-300 shadow-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-terracotta-500/20 text-terracotta-400 text-xs uppercase tracking-widest font-bold px-4 py-1.5 rounded-bl-xl border-l border-b border-terracotta-500/30">
+                        Event 01
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-14 h-14 rounded-full bg-burgundy-900 border border-gold/40 flex items-center justify-center text-gold text-xl flex-shrink-0">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <div>
+                            <span class="text-gold text-xs font-semibold uppercase tracking-widest block">Tuesday, Jan 07</span>
+                            <h3 class="font-serif text-2xl font-bold text-white">Bride's Pre-Wedding Eve</h3>
+                        </div>
+                    </div>
+                    <p class="text-stone-300 text-sm mb-6 leading-relaxed">
+                        An evening of traditional music, joy, and festive blessings celebrating Ancy before the wedding day.
+                    </p>
+                    <div class="space-y-2 text-xs text-stone-300 border-t border-gold/10 pt-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-calendar-alt text-gold"></i>
+                            <span class="font-semibold text-white">January 07</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-clock text-gold"></i>
+                            <span>Evening Celebration</span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button onclick="openMapModal('Bride Pre-Wedding Eve')" class="w-full py-2.5 rounded-xl border border-gold/40 text-gold hover:bg-gold hover:text-burgundy-950 text-xs font-bold uppercase tracking-wider transition flex items-center justify-center space-x-2">
+                            <i class="fas fa-location-arrow"></i>
+                            <span>View Event Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 2: Engagement Ceremony -->
+                <div class="glass-dark p-8 rounded-2xl border-l-4 border-l-gold hover:border-gold transition-all duration-300 shadow-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-gold/20 text-gold text-xs uppercase tracking-widest font-bold px-4 py-1.5 rounded-bl-xl border-l border-b border-gold/30">
+                        Event 02
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-14 h-14 rounded-full bg-burgundy-900 border border-gold/40 flex items-center justify-center text-gold text-xl flex-shrink-0">
+                            <i class="fas fa-ring"></i>
+                        </div>
+                        <div>
+                            <span class="text-gold text-xs font-semibold uppercase tracking-widest block">Thursday, Jan 09</span>
+                            <h3 class="font-serif text-2xl font-bold text-white">Engagement Ceremony</h3>
+                        </div>
+                    </div>
+                    <p class="text-stone-300 text-sm mb-6 leading-relaxed">
+                        The official exchange of rings and sacred promises in the company of beloved family and friends.
+                    </p>
+                    <div class="space-y-2 text-xs text-stone-300 border-t border-gold/10 pt-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-calendar-alt text-gold"></i>
+                            <span class="font-semibold text-white">January 09</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-clock text-gold"></i>
+                            <span>Morning Ceremony</span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button onclick="openMapModal('Engagement Ceremony')" class="w-full py-2.5 rounded-xl border border-gold/40 text-gold hover:bg-gold hover:text-burgundy-950 text-xs font-bold uppercase tracking-wider transition flex items-center justify-center space-x-2">
+                            <i class="fas fa-location-arrow"></i>
+                            <span>View Event Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 3: Groom Pre-wedding Eve -->
+                <div class="glass-dark p-8 rounded-2xl border-l-4 border-l-terracotta-400 hover:border-gold transition-all duration-300 shadow-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-terracotta-500/20 text-terracotta-400 text-xs uppercase tracking-widest font-bold px-4 py-1.5 rounded-bl-xl border-l border-b border-terracotta-500/30">
+                        Event 03
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-14 h-14 rounded-full bg-burgundy-900 border border-gold/40 flex items-center justify-center text-gold text-xl flex-shrink-0">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div>
+                            <span class="text-gold text-xs font-semibold uppercase tracking-widest block">Saturday, Jan 11</span>
+                            <h3 class="font-serif text-2xl font-bold text-white">Groom's Pre-Wedding Eve</h3>
+                        </div>
+                    </div>
+                    <p class="text-stone-300 text-sm mb-6 leading-relaxed">
+                        A festive night of dinner, warmth, and blessings hosted by Salvin's family.
+                    </p>
+                    <div class="space-y-2 text-xs text-stone-300 border-t border-gold/10 pt-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-calendar-alt text-gold"></i>
+                            <span class="font-semibold text-white">January 11</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-clock text-gold"></i>
+                            <span>Evening Banquet</span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button onclick="openMapModal('Groom Pre-Wedding Eve')" class="w-full py-2.5 rounded-xl border border-gold/40 text-gold hover:bg-gold hover:text-burgundy-950 text-xs font-bold uppercase tracking-wider transition flex items-center justify-center space-x-2">
+                            <i class="fas fa-location-arrow"></i>
+                            <span>View Event Details</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 4: Marriage Ceremony (Main Event) -->
+                <div class="glass-dark p-8 rounded-2xl border-2 border-gold hover:shadow-gold transition-all duration-300 shadow-2xl relative overflow-hidden bg-gradient-to-br from-burgundy-900/90 via-burgundy-950/90 to-stone-950">
+                    <div class="absolute top-0 right-0 bg-gold text-burgundy-950 text-xs uppercase tracking-widest font-black px-4 py-1.5 rounded-bl-xl shadow-md">
+                        Main Event
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-14 h-14 rounded-full bg-gold text-burgundy-950 flex items-center justify-center text-2xl font-bold shadow-lg flex-shrink-0">
+                            <i class="fas fa-church"></i>
+                        </div>
+                        <div>
+                            <span class="text-gold text-xs font-bold uppercase tracking-widest block">Tuesday, Jan 14</span>
+                            <h3 class="font-serif text-2xl md:text-3xl font-bold text-white shimmer-gold">The Marriage Ceremony</h3>
+                        </div>
+                    </div>
+                    <p class="text-stone-200 text-sm mb-6 leading-relaxed font-light">
+                        The auspicious Holy Matrimony &amp; Wedding Ceremony where Salvin and Ancy unite in marriage, followed by the wedding reception.
+                    </p>
+                    <div class="space-y-2 text-xs text-stone-200 border-t border-gold/30 pt-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-calendar-check text-gold"></i>
+                            <span class="font-semibold text-gold">January 14</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-heart text-gold"></i>
+                            <span>Sacred Wedding Nuptials &amp; Reception</span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button onclick="openMapModal('Marriage Ceremony')" class="w-full py-3 rounded-xl bg-gold-gradient text-burgundy-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 shadow-lg transition flex items-center justify-center space-x-2">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>View Marriage Details</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-stone-950 text-stone-400 text-center border-t border-gold/20 relative z-20">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <h3 class="font-script text-4xl text-gold">Salvin &amp; Ancy</h3>
+            <p class="text-xs uppercase tracking-widest text-stone-400">
+                Bride Eve: Jan 07 • Engagement: Jan 09 • Groom Eve: Jan 11 • Marriage: Jan 14
+            </p>
+            <div class="flex justify-center items-center space-x-4 pt-2">
+                <button onclick="copyPageLink()" class="px-5 py-2.5 rounded-full border border-gold/40 text-gold text-xs uppercase tracking-wider hover:bg-gold hover:text-burgundy-950 transition flex items-center space-x-2">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Share Invitation</span>
+                </button>
+            </div>
+            <p class="text-[11px] text-stone-500 pt-6">
+                With Warm Wishes • Salvin Paulson &amp; Ancy Antony Wedding
+            </p>
+        </div>
+    </footer>
+
+    <!-- Custom Modal Container -->
+    <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+        <div class="bg-burgundy-950 border border-gold/40 rounded-2xl max-w-md w-full p-6 text-center text-white space-y-4 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-gold text-lg">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalIcon" class="text-4xl text-gold">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3 id="modalTitle" class="font-serif text-2xl font-bold text-white">Notice</h3>
+            <p id="modalBody" class="text-sm text-stone-300">Message content here.</p>
+            <div class="pt-2">
+                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl bg-gold-gradient text-burgundy-950 font-bold text-xs uppercase tracking-wider">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Target Date: Jan 14
+        const now = new Date();
+        let targetYear = now.getFullYear();
+        let weddingDate = new Date(targetYear, 0, 14, 10, 0, 0);
+        if (now > weddingDate && now.getMonth() > 0) {
+            weddingDate = new Date(targetYear + 1, 0, 14, 10, 0, 0);
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const current = new Date();
+            const diff = weddingDate - current;
+
+            if (diff <= 0) {
+                document.getElementById('cd-days').innerText = "00";
+                document.getElementById('cd-hours').innerText = "00";
+                document.getElementById('cd-minutes').innerText = "00";
+                document.getElementById('cd-seconds').innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('cd-days').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('cd-hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('cd-minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('cd-seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Canvas Rose Petal Animation
+        const canvas = document.getElementById('petalsCanvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const petals = [];
+        const petalColors = ['#D4AF37', '#e57a8a', '#ba334d', '#F8EDE3', '#C86D51'];
+
+        for (let i = 0; i < 30; i++) {
+            petals.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 8 + 4,
+                speedY: Math.random() * 1.2 + 0.5,
+                speedX: Math.random() * 0.8 - 0.4,
+                angle: Math.random() * 360,
+                spin: Math.random() * 2 - 1,
+                color: petalColors[Math.floor(Math.random() * petalColors.length)]
+            });
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, width, height);
+
+            petals.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.angle += p.spin;
+
+                if (p.y > height) {
+                    p.y = -10;
+                    p.x = Math.random() * width;
+                }
+
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.angle * Math.PI) / 180);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = 0.6;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, p.size, p.size / 2, 0, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            requestAnimationFrame(animatePetals);
+        }
+        animatePetals();
+
+        // Web Audio Synthesizer
+        let audioCtx = null;
+        let isPlaying = false;
+        let melodyInterval = null;
+
+        const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
+        const sequence = [0, 2, 4, 7, 4, 2, 0, 4, 5, 7, 4, 2];
+
+        function playTone(freq, duration = 1.2) {
+            if (!audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        document.getElementById('musicToggle').addEventListener('click', () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (isPlaying) {
+                clearInterval(melodyInterval);
+                isPlaying = false;
+                document.getElementById('musicIcon').className = 'fas fa-music';
+                showModal('Music Paused', 'Ambient melody has been paused.', 'fa-pause');
+            } else {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                isPlaying = true;
+                document.getElementById('musicIcon').className = 'fas fa-volume-up text-gold';
+                let step = 0;
+                playTone(notes[sequence[0]]);
+                melodyInterval = setInterval(() => {
+                    step = (step + 1) % sequence.length;
+                    playTone(notes[sequence[step]]);
+                }, 600);
+                showModal('Playing Melody', 'Soft ambient background music playing.', 'fa-music');
+            }
+        });
+
+        // Modal Helpers
+        function showModal(title, body, icon = 'fa-info-circle') {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('modalIcon').innerHTML = `<i class="fas ${icon}"></i>`;
+            document.getElementById('customModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        function openMapModal(eventName) {
+            showModal(`Details: ${eventName}`, `You are invited to join Salvin Paulson & Ancy Antony for the ${eventName}. Venue details will be shared directly with guests!`, 'fa-calendar-check');
+        }
+
+        function copyPageLink() {
+            const tempInput = document.createElement('input');
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showModal('Link Copied!', 'Invitation link copied to clipboard. Share it with family and friends!', 'fa-copy');
+        }
+    </script>
+</body>
+</html>
