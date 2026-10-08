@@ -8,14 +8,13 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -23,6 +22,7 @@
                 extend: {
                     colors: {
                         gold: {
+                            50: '#fcfaf2',
                             100: '#fdf8e6',
                             200: '#f9eebe',
                             300: '#f5de8c',
@@ -30,6 +30,7 @@
                             500: '#d4af37',
                             600: '#aa8822',
                             700: '#806313',
+                            800: '#5c460b',
                         },
                         ivory: '#FAF9F5',
                         burgundy: '#5B1A24',
@@ -52,59 +53,88 @@
             color: #2D3748;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .font-script {
-            font-family: 'Great Vibes', cursive;
-        }
+        .font-script { font-family: 'Great Vibes', cursive; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-garamond { font-family: 'Cormorant Garamond', serif; }
 
-        .font-cinzel {
-            font-family: 'Cinzel', serif;
-        }
-
-        .font-garamond {
-            font-family: 'Cormorant Garamond', serif;
-        }
-
+        /* Subtle luxury background grid pattern */
         .bg-pattern {
             background-color: #faf9f5;
-            background-image: radial-gradient(#d4af37 0.75px, transparent 0.75px), radial-gradient(#d4af37 0.75px, #faf9f5 0.75px);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px;
-            background-opacity: 0.15;
+            background-image: radial-gradient(#d4af37 0.8px, transparent 0.8px), radial-gradient(#d4af37 0.8px, #faf9f5 0.8px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
         }
 
+        /* Responsive glassmorphism cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            box-shadow: 0 10px 30px -5px rgba(197, 160, 89, 0.1);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            box-shadow: 0 10px 30px -5px rgba(197, 160, 89, 0.12);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        .glass-card:hover, .glass-card:active {
+            box-shadow: 0 15px 35px -5px rgba(212, 175, 55, 0.25);
+            border-color: rgba(212, 175, 55, 0.55);
+        }
+
+        /* Gold metallic text gradient */
         .gold-gradient-text {
-            background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #aa8822 100%);
+            background: linear-gradient(135deg, #b8860b 0%, #d4af37 40%, #f5de8c 60%, #aa8822 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shineText 6s linear infinite;
         }
 
-        .gold-border-frame {
-            position: relative;
+        @keyframes shineText {
+            to { background-position: 200% center; }
         }
 
-        .gold-border-frame::before {
-            content: '';
+        /* Rotating gold dashed halo frame */
+        .halo-ring {
             position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            border: 1px solid #d4af37;
-            border-radius: inherit;
+            inset: -12px;
+            border: 2px dashed #d4af37;
+            border-radius: 50%;
+            animation: spinRing 25s linear infinite;
+            opacity: 0.7;
             pointer-events: none;
-            opacity: 0.6;
         }
 
-        /* Sound wave animation */
+        @keyframes spinRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating sparkles animation */
+        .sparkle-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: radial-gradient(circle, #f5de8c 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatSparkle 8s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatSparkle {
+            0% { transform: translateY(100px) scale(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+        /* Sound wave equalizer animation */
         .bar {
             width: 3px;
             height: 12px;
@@ -125,13 +155,41 @@
             animation-play-state: paused;
             height: 4px;
         }
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline connector line */
+        .timeline-line {
+            position: absolute;
+            top: 2rem;
+            bottom: 2rem;
+            left: 27px;
+            width: 2px;
+            background: linear-gradient(to bottom, #ebd061 0%, #d4af37 50%, #aa8822 100%);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
     </style>
 </head>
 <body class="bg-pattern antialiased text-gray-800 selection:bg-gold-200 selection:text-gold-700">
 
-    <!-- Floating Audio Control Bar -->
-    <div class="fixed bottom-5 right-5 z-50">
-        <button id="audioToggleBtn" onclick="toggleAudio()" class="flex items-center gap-3 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-gold-300 hover:border-gold-500 transition-all duration-300 group text-sm">
+    <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+        <button id="audioToggleBtn" onclick="toggleAudio()" class="flex items-center gap-2.5 sm:gap-3 bg-white/90 backdrop-blur-xl px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full shadow-2xl border border-gold-300 hover:border-gold-500 active:scale-95 transition-all duration-300 group text-sm">
             <div id="soundWave" class="flex items-center gap-0.5 h-4">
                 <span class="bar rounded-full"></span>
                 <span class="bar rounded-full"></span>
@@ -139,7 +197,7 @@
                 <span class="bar rounded-full"></span>
             </div>
             <div class="flex flex-col text-left">
-                <span class="text-[10px] uppercase tracking-wider text-gray-500 font-semibold leading-tight">Wedding Hymn</span>
+                <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-500 font-semibold leading-tight">Wedding Hymn</span>
                 <span id="audioStatusText" class="text-xs font-cinzel text-gold-700 font-bold">Canon in D</span>
             </div>
             <div class="w-7 h-7 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition-colors">
@@ -148,130 +206,141 @@
         </button>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gold-200/50">
+    <nav class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-gold-200/60 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <a href="#" class="flex items-center gap-2">
-                    <i class="fa-solid fa-cross text-gold-500 text-lg"></i>
-                    <span class="font-cinzel text-lg tracking-widest text-gray-800 font-semibold">S <span class="text-gold-500">&</span> A</span>
+                <a href="#" class="flex items-center gap-2 group">
+                    <i class="fa-solid fa-cross text-gold-500 text-lg group-hover:scale-110 transition-transform"></i>
+                    <span class="font-cinzel text-lg tracking-widest text-gray-800 font-bold">S <span class="text-gold-500">&</span> A</span>
                 </a>
-                <div class="hidden md:flex items-center space-x-8 text-sm font-medium font-cinzel tracking-wider text-gray-600">
+                <div class="hidden md:flex items-center space-x-8 text-xs font-semibold font-cinzel tracking-widest uppercase text-gray-600">
                     <a href="#hero" class="hover:text-gold-600 transition-colors">Home</a>
                     <a href="#family" class="hover:text-gold-600 transition-colors">Families</a>
                     <a href="#schedule" class="hover:text-gold-600 transition-colors">Schedule</a>
                     <a href="#venues" class="hover:text-gold-600 transition-colors">Venues</a>
                 </div>
-                <!-- Mobile Navigation Menu Toggle -->
-                <button onclick="toggleMobileNav()" class="md:hidden text-gray-600 p-2 focus:outline-none">
+                <!-- Mobile Navigation Toggle -->
+                <button onclick="toggleMobileNav()" class="md:hidden text-gray-700 p-2 focus:outline-none rounded-lg active:bg-gold-100 transition-colors" aria-label="Toggle Navigation">
                     <i id="mobileMenuIcon" class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
-        <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden md:hidden bg-white/95 border-b border-gold-200 px-4 pt-2 pb-4 space-y-2 text-center font-cinzel">
-            <a href="#hero" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600">Home</a>
-            <a href="#family" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600">Families</a>
-            <a href="#schedule" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600">Schedule</a>
-            <a href="#venues" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600">Venues</a>
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/98 backdrop-blur-2xl border-b border-gold-200 px-6 py-4 space-y-3 text-center font-cinzel text-sm shadow-xl transition-all">
+            <a href="#hero" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600 font-semibold border-b border-gold-100">Home</a>
+            <a href="#family" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600 font-semibold border-b border-gold-100">Families</a>
+            <a href="#schedule" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600 font-semibold border-b border-gold-100">Schedule</a>
+            <a href="#venues" onclick="toggleMobileNav()" class="block py-2 text-gray-700 hover:text-gold-600 font-semibold">Venues</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative pt-12 pb-20 md:pt-20 md:pb-28 px-4 text-center overflow-hidden">
-        <div class="max-w-4xl mx-auto">
+    <section id="hero" class="relative pt-10 pb-16 md:pt-20 md:pb-28 px-4 text-center overflow-hidden">
+        <!-- Floating Sparkle Background Particles -->
+        <div class="sparkle-container">
+            <div class="sparkle" style="top: 15%; left: 20%; width: 6px; height: 6px; animation-delay: 0s;"></div>
+            <div class="sparkle" style="top: 35%; left: 80%; width: 10px; height: 10px; animation-delay: 2s;"></div>
+            <div class="sparkle" style="top: 65%; left: 15%; width: 8px; height: 8px; animation-delay: 4s;"></div>
+            <div class="sparkle" style="top: 75%; left: 85%; width: 6px; height: 6px; animation-delay: 1s;"></div>
+            <div class="sparkle" style="top: 45%; left: 50%; width: 12px; height: 12px; animation-delay: 3s;"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
             <!-- Christian Motif Header -->
-            <div class="flex justify-center items-center gap-3 mb-4">
-                <div class="h-px w-12 bg-gold-400"></div>
-                <i class="fa-solid fa-cross text-gold-500 text-xl"></i>
-                <div class="h-px w-12 bg-gold-400"></div>
+            <div class="flex justify-center items-center gap-3 mb-4 animate-pulse">
+                <div class="h-px w-10 sm:w-16 bg-gradient-to-r from-transparent to-gold-400"></div>
+                <i class="fa-solid fa-cross text-gold-500 text-lg sm:text-xl"></i>
+                <div class="h-px w-10 sm:w-16 bg-gradient-to-l from-transparent to-gold-400"></div>
             </div>
             
-            <p class="font-cinzel text-xs sm:text-sm tracking-[0.3em] uppercase text-gold-700 mb-2">Together with their families</p>
+            <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] uppercase text-gold-700 font-semibold mb-2">Together with their families</p>
             
-            <h1 class="font-script text-5xl sm:text-7xl md:text-8xl gold-gradient-text py-2">
+            <h1 class="font-script text-5xl sm:text-7xl md:text-8xl gold-gradient-text py-2 drop-shadow-sm">
                 Salvin <span class="text-3xl sm:text-5xl font-garamond italic text-gray-600">&</span> Ancy
             </h1>
             
-            <p class="font-garamond italic text-lg sm:text-xl text-gray-600 mb-8 max-w-xl mx-auto">
+            <p class="font-garamond italic text-base sm:text-xl text-gray-600 mb-8 max-w-xl mx-auto leading-relaxed px-4">
                 "Therefore what God has joined together, let no one separate."
-                <span class="block text-xs font-sans tracking-widest text-gold-600 uppercase mt-1 non-italic font-semibold">— Mark 10:9 —</span>
+                <span class="block text-[11px] sm:text-xs font-sans tracking-widest text-gold-600 uppercase mt-1.5 non-italic font-bold">— Mark 10:9 —</span>
             </p>
 
-            <!-- Featured Couple Photo Frame -->
-            <div class="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto mb-10 gold-border-frame rounded-full p-2 bg-white shadow-2xl">
-                <div class="w-full h-full rounded-full overflow-hidden border-2 border-gold-300 relative bg-gold-50">
+            <!-- Featured Animated Couple Photo Frame -->
+            <div class="relative w-60 h-60 sm:w-80 sm:h-80 mx-auto mb-10 p-2 bg-white rounded-full shadow-2xl active:scale-95 transition-transform duration-300">
+                <div class="halo-ring"></div>
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-gold-300 via-gold-500 to-gold-200 blur-sm opacity-50 animate-pulse"></div>
+                <div class="w-full h-full rounded-full overflow-hidden border-2 border-gold-300 relative bg-gold-50 shadow-inner">
                     <img 
                         src="couple1.jpeg" 
                         alt="Salvin & Ancy" 
-                        class="w-full h-full object-cover"
+                        class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                         onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/saniyakavungal/salvinwedding/main/couple1.jpeg';"
                     >
                 </div>
-                <!-- Floral Accents -->
-                <div class="absolute -bottom-3 -left-3 text-gold-500 text-3xl">❀</div>
-                <div class="absolute -top-3 -right-3 text-gold-500 text-3xl">❀</div>
+                <!-- Floral Corner Accents -->
+                <div class="absolute -bottom-2 -left-2 text-gold-500 text-2xl sm:text-3xl animate-bounce" style="animation-duration: 3s;">❀</div>
+                <div class="absolute -top-2 -right-2 text-gold-500 text-2xl sm:text-3xl animate-bounce" style="animation-duration: 3.5s;">❀</div>
             </div>
 
-            <!-- Countdown Timer Card -->
-            <div class="glass-card max-w-lg mx-auto rounded-2xl p-6 shadow-xl border border-gold-300/40">
-                <h2 class="font-cinzel text-sm uppercase tracking-widest text-gray-600 mb-4">Counting Down To The Big Day</h2>
+            <!-- Countdown Timer Glass Card -->
+            <div class="glass-card max-w-lg mx-auto rounded-2xl p-5 sm:p-6 shadow-xl border border-gold-300/50 reveal">
+                <h2 class="font-cinzel text-xs sm:text-sm uppercase tracking-widest text-gray-600 font-bold mb-4 flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-clock text-gold-500"></i>
+                    Counting Down To The Big Day
+                </h2>
                 <div id="countdown" class="grid grid-cols-4 gap-2 text-center">
-                    <div class="bg-white/80 p-3 rounded-xl border border-gold-200">
-                        <span id="days" class="block font-cinzel text-2xl sm:text-3xl font-bold text-gold-600">00</span>
-                        <span class="text-[10px] uppercase tracking-wider text-gray-500">Days</span>
+                    <div class="bg-white/90 p-2.5 sm:p-3 rounded-xl border border-gold-200/80 shadow-sm">
+                        <span id="days" class="block font-cinzel text-xl sm:text-3xl font-extrabold text-gold-600">00</span>
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Days</span>
                     </div>
-                    <div class="bg-white/80 p-3 rounded-xl border border-gold-200">
-                        <span id="hours" class="block font-cinzel text-2xl sm:text-3xl font-bold text-gold-600">00</span>
-                        <span class="text-[10px] uppercase tracking-wider text-gray-500">Hours</span>
+                    <div class="bg-white/90 p-2.5 sm:p-3 rounded-xl border border-gold-200/80 shadow-sm">
+                        <span id="hours" class="block font-cinzel text-xl sm:text-3xl font-extrabold text-gold-600">00</span>
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Hours</span>
                     </div>
-                    <div class="bg-white/80 p-3 rounded-xl border border-gold-200">
-                        <span id="minutes" class="block font-cinzel text-2xl sm:text-3xl font-bold text-gold-600">00</span>
-                        <span class="text-[10px] uppercase tracking-wider text-gray-500">Mins</span>
+                    <div class="bg-white/90 p-2.5 sm:p-3 rounded-xl border border-gold-200/80 shadow-sm">
+                        <span id="minutes" class="block font-cinzel text-xl sm:text-3xl font-extrabold text-gold-600">00</span>
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Mins</span>
                     </div>
-                    <div class="bg-white/80 p-3 rounded-xl border border-gold-200">
-                        <span id="seconds" class="block font-cinzel text-2xl sm:text-3xl font-bold text-gold-600">00</span>
-                        <span class="text-[10px] uppercase tracking-wider text-gray-500">Secs</span>
+                    <div class="bg-white/90 p-2.5 sm:p-3 rounded-xl border border-gold-200/80 shadow-sm">
+                        <span id="seconds" class="block font-cinzel text-xl sm:text-3xl font-extrabold text-gold-600">00</span>
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Secs</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Parents & Family Section -->
-    <section id="family" class="py-16 px-4 bg-white/60 border-y border-gold-200/50">
+    <section id="family" class="py-16 px-4 bg-white/70 border-y border-gold-200/60 relative">
         <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12 reveal">
                 <i class="fa-solid fa-dove text-gold-500 text-2xl mb-2"></i>
                 <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-gray-800 tracking-wider">The Holy Union</h2>
-                <div class="w-16 h-0.5 bg-gold-400 mx-auto mt-2"></div>
+                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-2"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 <!-- Groom Card -->
-                <div class="glass-card rounded-2xl p-8 text-center relative overflow-hidden group hover:border-gold-400 transition-all">
-                    <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-gold-100/50 rounded-full blur-xl"></div>
-                    <div class="inline-flex p-3 rounded-full bg-gold-100 text-gold-600 mb-4">
+                <div class="glass-card rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden group hover:border-gold-400 active:scale-[0.98] transition-all duration-300 reveal">
+                    <div class="absolute top-0 right-0 w-28 h-28 -mr-10 -mt-10 bg-gold-200/40 rounded-full blur-2xl group-hover:bg-gold-300/50 transition-colors"></div>
+                    <div class="inline-flex p-3.5 rounded-full bg-gold-100/80 text-gold-600 mb-4 shadow-sm border border-gold-200">
                         <i class="fa-solid fa-ring text-xl"></i>
                     </div>
-                    <span class="block font-cinzel text-xs tracking-widest text-gold-700 uppercase">The Groom</span>
+                    <span class="block font-cinzel text-xs tracking-widest text-gold-700 uppercase font-bold">The Groom</span>
                     <h3 class="font-garamond text-3xl font-bold text-gray-800 mt-1 mb-4">Salvin Paulson</h3>
                     <div class="h-px w-12 bg-gold-300 mx-auto mb-4"></div>
-                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Son of</p>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Son of</p>
                     <p class="font-garamond text-xl text-gray-800 font-semibold">Mr. K J Paul</p>
                     <p class="font-garamond text-lg text-gray-600 italic">& Mrs. Shiji Thomas</p>
                 </div>
 
                 <!-- Bride Card -->
-                <div class="glass-card rounded-2xl p-8 text-center relative overflow-hidden group hover:border-gold-400 transition-all">
-                    <div class="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-gold-100/50 rounded-full blur-xl"></div>
-                    <div class="inline-flex p-3 rounded-full bg-gold-100 text-gold-600 mb-4">
+                <div class="glass-card rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden group hover:border-gold-400 active:scale-[0.98] transition-all duration-300 reveal">
+                    <div class="absolute top-0 right-0 w-28 h-28 -mr-10 -mt-10 bg-gold-200/40 rounded-full blur-2xl group-hover:bg-gold-300/50 transition-colors"></div>
+                    <div class="inline-flex p-3.5 rounded-full bg-gold-100/80 text-gold-600 mb-4 shadow-sm border border-gold-200">
                         <i class="fa-solid fa-heart text-xl"></i>
                     </div>
-                    <span class="block font-cinzel text-xs tracking-widest text-gold-700 uppercase">The Bride</span>
+                    <span class="block font-cinzel text-xs tracking-widest text-gold-700 uppercase font-bold">The Bride</span>
                     <h3 class="font-garamond text-3xl font-bold text-gray-800 mt-1 mb-4">Ancy Antony</h3>
                     <div class="h-px w-12 bg-gold-300 mx-auto mb-4"></div>
-                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Daughter of</p>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Daughter of</p>
                     <p class="font-garamond text-xl text-gray-800 font-semibold">Mr. Antony C.P</p>
                     <p class="font-garamond text-lg text-gray-600 italic">& Mrs. Lissy V.A</p>
                 </div>
@@ -279,150 +348,162 @@
         </div>
     </section>
 
-    <!-- Schedule Section -->
-    <section id="schedule" class="py-16 px-4">
+    <section id="schedule" class="py-16 px-4 relative overflow-hidden">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
+            <div class="text-center mb-14 reveal">
                 <i class="fa-solid fa-calendar-days text-gold-500 text-2xl mb-2"></i>
                 <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-gray-800 tracking-wider">Celebration Itinerary</h2>
-                <p class="font-garamond italic text-gray-600 mt-1 text-lg">Join us as we celebrate our love across these special days</p>
-                <div class="w-16 h-0.5 bg-gold-400 mx-auto mt-2"></div>
+                <p class="font-garamond italic text-gray-600 mt-1 text-base sm:text-lg">Join us as we celebrate our love across these special days</p>
+                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-2"></div>
             </div>
 
-            <div class="space-y-6">
-                <!-- Item 1: Bride Pre-Wedding Eve -->
-                <div class="glass-card rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-l-gold-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gold-100 flex items-center justify-center text-gold-700 font-cinzel font-bold text-lg shrink-0">
-                            JAN 7
-                        </div>
-                        <div>
-                            <h3 class="font-garamond text-2xl font-bold text-gray-800">Bride's Pre-Wedding Eve</h3>
-                            <p class="text-sm text-gray-600">Traditional pre-wedding eve celebrations at Bride's residence</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 bg-gold-50 text-gold-700 border border-gold-200 text-xs font-semibold rounded-full uppercase tracking-wider">Bride Side</span>
-                </div>
+            <div class="relative pl-12 pr-2 md:px-0">
+                <!-- Vertical Golden Connecting Line -->
+                <div class="timeline-line"></div>
 
-                <!-- Item 2: Engagement -->
-                <div class="glass-card rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-l-gold-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gold-100 flex items-center justify-center text-gold-700 font-cinzel font-bold text-lg shrink-0">
-                            JAN 9
-                        </div>
-                        <div>
-                            <h3 class="font-garamond text-2xl font-bold text-gray-800">Engagement & Blessing</h3>
-                            <p class="text-sm text-gray-600">Immaculate Heart Church & Reception at Parish Hall, Varandarappilly</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 bg-gold-50 text-gold-700 border border-gold-200 text-xs font-semibold rounded-full uppercase tracking-wider">Betrothal</span>
-                </div>
-
-                <!-- Item 3: Groom Pre-Wedding Eve -->
-                <div class="glass-card rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-l-gold-500">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gold-100 flex items-center justify-center text-gold-700 font-cinzel font-bold text-lg shrink-0">
-                            JAN 11
-                        </div>
-                        <div>
-                            <h3 class="font-garamond text-2xl font-bold text-gray-800">Groom's Pre-Wedding Eve</h3>
-                            <p class="text-sm text-gray-600">Traditional pre-wedding eve gathering at Groom's residence</p>
-                        </div>
-                    </div>
-                    <span class="px-3 py-1 bg-gold-50 text-gold-700 border border-gold-200 text-xs font-semibold rounded-full uppercase tracking-wider">Groom Side</span>
-                </div>
-
-                <!-- Item 4: Holy Marriage & Reception -->
-                <div class="glass-card rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-l-gold-600 bg-gold-50/30">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gold-500 text-white flex items-center justify-center text-gold-700 font-cinzel font-bold text-lg shrink-0 shadow-md">
-                            JAN 14
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="font-garamond text-2xl font-bold text-gray-900">Holy Matrimony & Grand Reception</h3>
-                                <i class="fa-solid fa-crown text-gold-500 text-xs"></i>
+                <div class="space-y-8">
+                    <!-- Event 1: Bride Pre-Wedding Eve -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4 glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-gold-400 reveal">
+                        <!-- Glowing timeline node dot -->
+                        <div class="absolute -left-[39px] md:left-1/2 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md z-10"></div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gold-100/90 border border-gold-300 flex flex-col items-center justify-center text-gold-700 font-cinzel font-extrabold text-sm shrink-0 shadow-sm">
+                                <span>JAN</span>
+                                <span class="text-lg leading-none">07</span>
                             </div>
-                            <p class="text-sm text-gray-600">Christ The King Church, Ernakulam followed by Reception at Manjooran Center</p>
+                            <div>
+                                <h3 class="font-garamond text-2xl font-bold text-gray-800">Bride's Pre-Wedding Eve</h3>
+                                <p class="text-xs sm:text-sm text-gray-600 mt-0.5">Traditional pre-wedding eve celebrations at Bride's residence</p>
+                            </div>
                         </div>
+                        <span class="px-3 py-1 bg-gold-100/80 text-gold-800 border border-gold-300 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider self-start md:self-auto">Bride Side</span>
                     </div>
-                    <span class="px-3 py-1 bg-gold-500 text-white text-xs font-semibold rounded-full uppercase tracking-wider shadow-sm">Wedding Day</span>
+
+                    <!-- Event 2: Engagement -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4 glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-gold-500 reveal">
+                        <div class="absolute -left-[39px] md:left-1/2 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md z-10"></div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gold-100/90 border border-gold-300 flex flex-col items-center justify-center text-gold-700 font-cinzel font-extrabold text-sm shrink-0 shadow-sm">
+                                <span>JAN</span>
+                                <span class="text-lg leading-none">09</span>
+                            </div>
+                            <div>
+                                <h3 class="font-garamond text-2xl font-bold text-gray-800">Engagement & Blessing</h3>
+                                <p class="text-xs sm:text-sm text-gray-600 mt-0.5">Immaculate Heart Church & Reception at Parish Hall, Varandarappilly</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 bg-gold-100/80 text-gold-800 border border-gold-300 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider self-start md:self-auto">Betrothal</span>
+                    </div>
+
+                    <!-- Event 3: Groom Pre-Wedding Eve -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4 glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-gold-400 reveal">
+                        <div class="absolute -left-[39px] md:left-1/2 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 w-6 h-6 rounded-full bg-gold-500 border-4 border-white shadow-md z-10"></div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gold-100/90 border border-gold-300 flex flex-col items-center justify-center text-gold-700 font-cinzel font-extrabold text-sm shrink-0 shadow-sm">
+                                <span>JAN</span>
+                                <span class="text-lg leading-none">11</span>
+                            </div>
+                            <div>
+                                <h3 class="font-garamond text-2xl font-bold text-gray-800">Groom's Pre-Wedding Eve</h3>
+                                <p class="text-xs sm:text-sm text-gray-600 mt-0.5">Traditional pre-wedding eve gathering at Groom's residence</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 bg-gold-100/80 text-gold-800 border border-gold-300 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider self-start md:self-auto">Groom Side</span>
+                    </div>
+
+                    <!-- Event 4: Holy Marriage & Grand Reception -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4 glass-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-gold-600 bg-gold-50/40 ring-2 ring-gold-400/40 reveal">
+                        <div class="absolute -left-[39px] md:left-1/2 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 w-7 h-7 rounded-full bg-gold-600 border-4 border-white shadow-lg ring-4 ring-gold-200 z-10 animate-pulse"></div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gold-500 text-white flex flex-col items-center justify-center font-cinzel font-extrabold text-sm shrink-0 shadow-md">
+                                <span>JAN</span>
+                                <span class="text-lg leading-none">14</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-garamond text-2xl font-bold text-gray-900">Holy Matrimony & Reception</h3>
+                                    <i class="fa-solid fa-crown text-gold-500 text-xs"></i>
+                                </div>
+                                <p class="text-xs sm:text-sm text-gray-600 mt-0.5">Christ The King Church, Ernakulam followed by Reception at Manjooran Center</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 bg-gold-600 text-white text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider shadow-sm self-start md:self-auto">Wedding Day</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Venues Section -->
-    <section id="venues" class="py-16 px-4 bg-white/60 border-t border-gold-200/50">
+    <section id="venues" class="py-16 px-4 bg-white/70 border-t border-gold-200/60">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12 reveal">
                 <i class="fa-solid fa-location-dot text-gold-500 text-2xl mb-2"></i>
                 <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-gray-800 tracking-wider">Venues & Directions</h2>
-                <p class="font-garamond italic text-gray-600 mt-1 text-lg">Click below for map navigation to all service and reception venues</p>
-                <div class="w-16 h-0.5 bg-gold-400 mx-auto mt-2"></div>
+                <p class="font-garamond italic text-gray-600 mt-1 text-base sm:text-lg">Click below for map directions to all service and reception venues</p>
+                <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-2"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <!-- Venue 1 -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:shadow-xl transition-shadow border border-gold-200">
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 reveal border border-gold-200">
                     <div>
-                        <div class="w-10 h-10 rounded-lg bg-gold-100 text-gold-700 flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-church"></i>
+                        <div class="w-12 h-12 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center mb-4 shadow-sm border border-gold-200">
+                            <i class="fa-solid fa-church text-lg"></i>
                         </div>
                         <span class="text-[10px] font-bold tracking-widest uppercase text-gold-600">Engagement Church</span>
                         <h3 class="font-garamond text-xl font-bold text-gray-800 mt-1 mb-2">Immaculate Heart Church</h3>
-                        <p class="text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Varandarappilly</p>
+                        <p class="text-xs sm:text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Varandarappilly</p>
                     </div>
-                    <a href="https://maps.app.goo.gl/MVoENPfHuXKtrYRm6" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-gold-500 hover:bg-gold-600 text-white font-cinzel text-xs tracking-wider rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md transition-colors">
+                    <a href="https://maps.app.goo.gl/MVoENPfHuXKtrYRm6" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-cinzel text-xs tracking-wider rounded-xl font-bold flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
                         <i class="fa-solid fa-diamond-turn-right text-xs"></i>
                         Get Directions
                     </a>
                 </div>
 
                 <!-- Venue 2 -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:shadow-xl transition-shadow border border-gold-200">
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 reveal border border-gold-200">
                     <div>
-                        <div class="w-10 h-10 rounded-lg bg-gold-100 text-gold-700 flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-utensils"></i>
+                        <div class="w-12 h-12 rounded-xl bg-gold-100 text-gold-700 flex items-center justify-center mb-4 shadow-sm border border-gold-200">
+                            <i class="fa-solid fa-utensils text-lg"></i>
                         </div>
                         <span class="text-[10px] font-bold tracking-widest uppercase text-gold-600">Engagement Reception</span>
                         <h3 class="font-garamond text-xl font-bold text-gray-800 mt-1 mb-2">Parish Hall</h3>
-                        <p class="text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Immaculate Heart Church, Varandarappilly</p>
+                        <p class="text-xs sm:text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Immaculate Heart Church, Varandarappilly</p>
                     </div>
-                    <a href="https://maps.app.goo.gl/dMPbBXE5ntB1cdAF8" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-gold-500 hover:bg-gold-600 text-white font-cinzel text-xs tracking-wider rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md transition-colors">
+                    <a href="https://maps.app.goo.gl/dMPbBXE5ntB1cdAF8" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-cinzel text-xs tracking-wider rounded-xl font-bold flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
                         <i class="fa-solid fa-diamond-turn-right text-xs"></i>
                         Get Directions
                     </a>
                 </div>
 
                 <!-- Venue 3 -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:shadow-xl transition-shadow border border-gold-300 ring-2 ring-gold-400/30">
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 reveal border border-gold-300 ring-2 ring-gold-400/30">
                     <div>
-                        <div class="w-10 h-10 rounded-lg bg-gold-500 text-white flex items-center justify-center mb-4 shadow-sm">
-                            <i class="fa-solid fa-cross"></i>
+                        <div class="w-12 h-12 rounded-xl bg-gold-500 text-white flex items-center justify-center mb-4 shadow-md">
+                            <i class="fa-solid fa-cross text-lg"></i>
                         </div>
                         <span class="text-[10px] font-bold tracking-widest uppercase text-gold-700">Wedding Church</span>
                         <h3 class="font-garamond text-xl font-bold text-gray-800 mt-1 mb-2">Christ The King Church</h3>
-                        <p class="text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Ernakulam</p>
+                        <p class="text-xs sm:text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Ernakulam</p>
                     </div>
-                    <a href="https://maps.app.goo.gl/b8iiHDnFww4DnSA2A" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-gold-500 hover:bg-gold-600 text-white font-cinzel text-xs tracking-wider rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md transition-colors">
+                    <a href="https://maps.app.goo.gl/b8iiHDnFww4DnSA2A" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-cinzel text-xs tracking-wider rounded-xl font-bold flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
                         <i class="fa-solid fa-diamond-turn-right text-xs"></i>
                         Get Directions
                     </a>
                 </div>
 
                 <!-- Venue 4 -->
-                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:shadow-xl transition-shadow border border-gold-300 ring-2 ring-gold-400/30">
+                <div class="glass-card rounded-2xl p-6 flex flex-col justify-between hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 reveal border border-gold-300 ring-2 ring-gold-400/30">
                     <div>
-                        <div class="w-10 h-10 rounded-lg bg-gold-500 text-white flex items-center justify-center mb-4 shadow-sm">
-                            <i class="fa-solid fa-glass-water-droplet"></i>
+                        <div class="w-12 h-12 rounded-xl bg-gold-500 text-white flex items-center justify-center mb-4 shadow-md">
+                            <i class="fa-solid fa-glass-water-droplet text-lg"></i>
                         </div>
                         <span class="text-[10px] font-bold tracking-widest uppercase text-gold-700">Wedding Reception</span>
                         <h3 class="font-garamond text-xl font-bold text-gray-800 mt-1 mb-2">Manjooran Center</h3>
-                        <p class="text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Ernakulam</p>
+                        <p class="text-xs sm:text-sm text-gray-600 mb-6"><i class="fa-solid fa-map-pin text-gold-500 mr-1.5"></i>Ernakulam</p>
                     </div>
-                    <a href="https://maps.app.goo.gl/WzwMzwwsxqyucY6q8" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-gold-500 hover:bg-gold-600 text-white font-cinzel text-xs tracking-wider rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md transition-colors">
+                    <a href="https://maps.app.goo.gl/WzwMzwwsxqyucY6q8" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-cinzel text-xs tracking-wider rounded-xl font-bold flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
                         <i class="fa-solid fa-diamond-turn-right text-xs"></i>
                         Get Directions
                     </a>
@@ -432,18 +513,16 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="py-12 bg-white text-center border-t border-gold-200">
         <div class="max-w-4xl mx-auto px-4">
             <i class="fa-solid fa-cross text-gold-500 text-2xl mb-4"></i>
             <h3 class="font-script text-4xl text-gold-600 mb-2">Salvin & Ancy</h3>
-            <p class="font-garamond italic text-gray-600 mb-6">Seeking your prayers and presence as we begin our new journey together in Christ.</p>
-            <div class="h-px w-24 bg-gold-200 mx-auto mb-6"></div>
-            <p class="font-cinzel text-xs text-gray-400 tracking-widest">JANUARY 2026 • CELEBRATING HOLY MATRIMONY</p>
+            <p class="font-garamond italic text-gray-600 mb-6 max-w-md mx-auto text-base">Seeking your prayers and presence as we begin our new journey together in Christ.</p>
+            <div class="h-px w-24 bg-gradient-to-r from-transparent via-gold-300 to-transparent mx-auto mb-6"></div>
+            <p class="font-cinzel text-xs text-gray-400 tracking-widest uppercase font-semibold">JANUARY 2026 • CELEBRATING HOLY MATRIMONY</p>
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
         // --- Navigation Drawer Logic ---
         function toggleMobileNav() {
@@ -458,7 +537,7 @@
         }
 
         // --- Countdown Clock Logic ---
-        const targetDate = new Date('January 14, 2027 10:00:00').getTime();
+        const targetDate = new Date('January 14, 2026 10:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -475,68 +554,98 @@
                 document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
                 document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
             } else {
-                document.getElementById('countdown').innerHTML = `<div class="col-span-4 font-cinzel text-gold-600 font-bold text-xl">The Celebration Has Begun!</div>`;
+                document.getElementById('countdown').innerHTML = `<div class="col-span-4 font-cinzel text-gold-600 font-bold text-lg">The Celebration Has Begun!</div>`;
             }
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // --- Pachelbel's Canon in D Web Audio Engine ---
+        // --- Scroll Reveal Animation Observer ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // --- Pachelbel's Canon in D Polyphonic Web Audio Engine ---
         let audioCtx = null;
         let isPlaying = false;
         let audioTimer = null;
         let noteIndex = 0;
 
-        // Canon in D Melody Frequencies (Hz)
+        // Frequencies for Canon in D (Melody + Harmony Chords)
         const notes = {
+            'D3': 146.83, 'A2': 110.00, 'B2': 123.47, 'F#2': 92.50, 'G2': 98.00,
             'D4': 293.66, 'A3': 220.00, 'B3': 246.94, 'F#3': 185.00,
-            'G3': 196.00, 'D3': 146.83, 'G4': 392.00, 'A4': 440.00,
+            'G3': 196.00, 'G4': 392.00, 'A4': 440.00,
             'F#4': 369.99, 'E4': 329.63, 'D5': 587.33, 'C#5': 554.37,
-            'B4': 493.88, 'A4': 440.00, 'G4': 392.00, 'F#4': 369.99
+            'B4': 493.88
         };
 
-        // Canon in D Classic Motif Sequence
+        // Canon in D Classic Motif
         const melodySequence = [
-            { note: 'F#4', duration: 0.8 },
-            { note: 'E4', duration: 0.8 },
-            { note: 'D4', duration: 0.8 },
-            { note: 'C#5', duration: 0.8 },
-            { note: 'B4', duration: 0.8 },
-            { note: 'A4', duration: 0.8 },
-            { note: 'B4', duration: 0.8 },
-            { note: 'C#5', duration: 0.8 },
+            { note: 'F#4', bass: 'D3', duration: 0.8 },
+            { note: 'E4', bass: 'A2', duration: 0.8 },
+            { note: 'D4', bass: 'B2', duration: 0.8 },
+            { note: 'C#5', bass: 'F#2', duration: 0.8 },
+            { note: 'B4', bass: 'G2', duration: 0.8 },
+            { note: 'A4', bass: 'D3', duration: 0.8 },
+            { note: 'B4', bass: 'G2', duration: 0.8 },
+            { note: 'C#5', bass: 'A2', duration: 0.8 },
             
-            { note: 'D5', duration: 0.4 },
-            { note: 'C#5', duration: 0.4 },
-            { note: 'B4', duration: 0.4 },
-            { note: 'A4', duration: 0.4 },
-            { note: 'G4', duration: 0.4 },
-            { note: 'F#4', duration: 0.4 },
-            { note: 'G4', duration: 0.4 },
-            { note: 'E4', duration: 0.4 }
+            { note: 'D5', bass: 'D3', duration: 0.4 },
+            { note: 'C#5', bass: 'A2', duration: 0.4 },
+            { note: 'B4', bass: 'B2', duration: 0.4 },
+            { note: 'A4', bass: 'F#2', duration: 0.4 },
+            { note: 'G4', bass: 'G2', duration: 0.4 },
+            { note: 'F#4', bass: 'D3', duration: 0.4 },
+            { note: 'G4', bass: 'G2', duration: 0.4 },
+            { note: 'E4', bass: 'A2', duration: 0.4 }
         ];
 
-        function playHarpNote(freq, duration) {
+        function playHarpNote(melodyFreq, bassFreq, duration) {
             if (!audioCtx || audioCtx.state !== 'running') return;
 
             try {
+                // Lead Melody Note Oscillator
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
 
-                // Mix warm harp timbre using sine & triangle waveform
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(melodyFreq, audioCtx.currentTime);
 
-                // Envelopes for smooth classical acoustic pluck
                 gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.25, audioCtx.currentTime + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                gain.gain.exponentialRampToValueAtTime(0.22, audioCtx.currentTime + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration * 0.95);
 
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
 
                 osc.start();
                 osc.stop(audioCtx.currentTime + duration);
+
+                // Warm Bass Note Oscillator
+                if (bassFreq) {
+                    const bassOsc = audioCtx.createOscillator();
+                    const bassGain = audioCtx.createGain();
+
+                    bassOsc.type = 'sine';
+                    bassOsc.frequency.setValueAtTime(bassFreq, audioCtx.currentTime);
+
+                    bassGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                    bassGain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.08);
+                    bassGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration * 1.1);
+
+                    bassOsc.connect(bassGain);
+                    bassGain.connect(audioCtx.destination);
+
+                    bassOsc.start();
+                    bassOsc.stop(audioCtx.currentTime + duration * 1.1);
+                }
             } catch(e) {
                 console.log(e);
             }
@@ -545,9 +654,10 @@
         function playCanonLoop() {
             if (!isPlaying) return;
             const current = melodySequence[noteIndex];
-            const freq = notes[current.note] || 440;
+            const mFreq = notes[current.note] || 440;
+            const bFreq = notes[current.bass] || 146;
             
-            playHarpNote(freq, current.duration);
+            playHarpNote(mFreq, bFreq, current.duration);
 
             noteIndex = (noteIndex + 1) % melodySequence.length;
             audioTimer = setTimeout(playCanonLoop, current.duration * 750);
@@ -583,7 +693,7 @@
             }
         }
 
-        // Auto-play trigger attempt on user page load/interaction
+        // Auto-play trigger attempt on user interaction
         window.addEventListener('load', () => {
             const handleAutoPlay = () => {
                 if (!isPlaying) {
@@ -594,15 +704,13 @@
                 document.removeEventListener('scroll', handleAutoPlay);
             };
 
-            // Register global interaction events to unlock audio context automatically
             document.addEventListener('click', handleAutoPlay);
             document.addEventListener('touchstart', handleAutoPlay);
             document.addEventListener('scroll', handleAutoPlay);
 
-            // Attempt immediate autoplay
             setTimeout(() => {
                 startAudioEngine();
-            }, 500);
+            }, 600);
         });
     </script>
 </body>
